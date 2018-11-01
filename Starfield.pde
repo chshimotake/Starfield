@@ -27,9 +27,9 @@ void draw()
 		a[i].move();
 		a[i].show();
 	}
-	for(int g=0; g<360;g++){
+	/*for(int g=0; g<360;g++){
 		OddballParticle(g);
-	}
+	}*/
 }
 class NormalParticle implements Particle
 {
@@ -74,7 +74,9 @@ interface Particle
 class OddballParticle implements Particle
 {
 	double xPo, yPo, the, spe;
-	int r=5, ceX=cenX-50, ceY=cenY-65.5;
+	int r=5, ceX=cenX-50, ceY=(int)(cenY-65.5), ang;
+	float rot;
+	//make a increasing variable that goes back to zero at 359
 	PImage image=loadImage("Gaster_Blaster.png");
 	OddballParticle(int cir)
 	{
@@ -82,7 +84,7 @@ class OddballParticle implements Particle
 		xPo=cenX;
 		yPo=cenY;
 		the=radians((int)(Math.random()*360));
-		float rot=radians(cir);
+		rot=radians(cir);
 	}
 	void move()
 	{
