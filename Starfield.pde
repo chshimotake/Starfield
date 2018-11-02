@@ -17,7 +17,7 @@ void fillArr()
 		a[i]=new NormalParticle(i);
 	}
 	a[360]=new JumboParticle((int)(Math.random()*360+1));
-	a[361]=new OddballParticle(45);
+	a[361]=new OddballParticle((int)(Math.random()*360+1));
 }
 void draw()
 {
@@ -98,8 +98,14 @@ class OddballParticle implements Particle
 		}
 		if(xPo)
 		(xPo*xPo)+(yPo*yPo)=25;*/
-		int xPo= (int)(ceX+r*cos(rot));
-		int yPo= (int)(ceY+r*sin(rot));
+		xPo+=(int)(ceX+r*cos(rot));
+		yPo+=(int)(ceY+r*sin(rot));
+		if(rot<360)
+		{
+			rot++;
+		}else{
+			rot=0;	
+		}
 	}
 	void show()
 	{
