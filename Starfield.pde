@@ -9,6 +9,7 @@ void setup()
 	size(1000, 1000);
 	fillArr();
 	frameRate(60);
+	strokeWeight(5);
 	//your code here
 }
 void fillArr()
@@ -23,6 +24,7 @@ void draw()
 {
 	fill(0, 0, 255);
 	rect(0, 0, 1000, 1000);
+	
 	for (int i = 0; i < 362; ++i) {
 		a[i].move();
 		a[i].show();
@@ -73,20 +75,17 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	double xPo, yPo, the, spe;
-	int r=5, ceX=cenX-50, ceY=(int)(cenY-65.5), ang;
-	float rot;
+	double startX, startY, endX, endY, spe;
 	//make a increasing variable that goes back to zero at 359
-	PImage image=loadImage("Gaster_Blaster.png");
 	OddballParticle(int cir)
 	{
 		spe=10;
-		xPo=cenX;
-		yPo=cenY;
-		the=radians((int)(Math.random()*360));
-		rot=radians(cir);
+		startX=0;
+		startY=250;
+		endX=500;
+		endY=250;
 	}
-	void move()
+	void show()
 	{
 		//xPo+=Math.cos(the)*spe;
 		//yPo+=Math.sin(the)*spe;
@@ -98,21 +97,44 @@ class OddballParticle implements Particle
 		}
 		if(xPo)
 		(xPo*xPo)+(yPo*yPo)=25;*/
-		xPo+=(int)(ceX+r*cos(rot));
+		
+		/*xPo+=(int)(ceX+r*cos(rot));
 		yPo+=(int)(ceY+r*sin(rot));
 		if(rot<360)
 		{
 			rot++;
 		}else{
 			rot=0;	
+		}*/
+		/*translate(width/2, height/2);
+		rotate(2*PI);*/
+		/*for (int i = 0; i < 250; ++i)
+		{
+			ellipse(startX, startY, Math.random()*5, Math.random()*5);
+
+		}*/
+		stroke((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+		startX=0;
+		startY=Math.random()*501;
+	}
+	void move()
+	{
+		while (startX<=500)
+		{
+			endX=startX+(int)(Math.random()*10);
+			endY=startY+(int)(Math.random()*19-9);
+			line((int)startX, (int)startY, (int)endX, (int)endY);
+			//line((int)(Math.random()*50+(centerX-25)), startY, (int)(Math.random()*800), 100);
+			startY=endY;
+			startX=endX;
 		}
 	}
-	void show()
-	{
-		image(image, (float)xPo, (float)yPo, 100, 131);
-	}
-	//your code here
+		//your code here
 }
+
+
+
+
 class JumboParticle extends NormalParticle
 {
 	JumboParticle(int k)
