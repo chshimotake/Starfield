@@ -1,8 +1,9 @@
 //your code here
-Particle a[]=new Particle[362];
+Particle a[]=new Particle[722];
 int cenX=500;
 int cenY=500;
 PImage img;
+int frem=0;
 //model off of asgore fight
 void setup()
 {
@@ -16,20 +17,37 @@ void setup()
 }
 void fillArr()
 {
-	for (int i = 0; i < 360; ++i) {
-		a[i]=new NormalParticle(i);
+	if(frem<180)
+	{
+		for (int i = 0; i < 360; ++i) {
+			a[i]=new NormalParticle(i);
+		}
+	}else{
+		for (int i = 360; i < 720; ++i) {
+			a[i]=new NormalParticle(i);
+		}
 	}
-	a[360]=new JumboParticle((int)(Math.random()*360+1));
-	a[361]=new OddballParticle();
+	a[720]=new JumboParticle((int)(Math.random()*360+1));
+	a[721]=new OddballParticle();
 }
 void draw()
 {
 	fill(0, 0, 0);
 	rect(0, 0, 1000, 1000);
 	
-	for (int i = 0; i < 362; ++i) {
-		a[i].move();
-		a[i].show();
+	for (int i = 0; i < 722; ++i) {
+		if(a[i]!=null)
+		{
+			a[i].move();
+			a[i].show();
+		}
+	}
+	frem++;
+	if(frem==90){
+		fillArr();
+	}else if(frem>180){
+		fillArr();
+		frem=0;
 	}
 	/*for(int g=0; g<360;g++){
 		OddballParticle(g);
@@ -148,8 +166,17 @@ class OddballParticle implements Particle
 	}
 	void move()
 	{
-		endX=a[(int)(Math.random()*361)].leftRight();
-		endY=a[(int)(Math.random()*361)].upDown();
+		int randX=(int)(Math.random()*720);
+		int randY=(int)(Math.random()*720);
+		while(a[randX]==null){
+			randX=(int)(Math.random()*720);
+		}
+		while(a[randY]==null)
+		{
+			randY=(int)(Math.random()*720);
+		}
+		endX=a[randX].leftRight();
+		endY=a[randY].upDown();
 		
 
 
