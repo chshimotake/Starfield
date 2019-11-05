@@ -1,245 +1,235 @@
-//your code here
-Particle a[]=new Particle[722];
-int cenX=500;
-int cenY=500;
-PImage img;
+Particle part[]=new Particle[361];
+PImage soul;
+PImage[] undyne=new PImage[11];
 int frem=0;
-//model off of asgore fight
 void setup()
 {
 	background(0, 0, 0);
 	size(1000, 1000);
-	fillArr();
-	frameRate(60);
-	strokeWeight(5);
-	img = loadImage("flash.png");
-	//your code here
-}
-void fillArr()
-{
-	if(frem<180)
+	//frameRate(5);
+	for(int i=0;i<part.length-1;i++)
 	{
-		for (int i = 0; i < 360; ++i) {
-			a[i]=new NormalParticle(i);
-		}
-	}else{
-		for (int i = 360; i < 720; ++i) {
-			a[i]=new NormalParticle(i);
-		}
+		part[i]=new Particle();
 	}
-	a[720]=new JumboParticle((int)(Math.random()*360+1));
-	a[721]=new OddballParticle();
+	part[360]=new OddballParticle();
+	soul=loadImage("greenSoul.png");
+	undyne[0]=loadImage("undyne1.gif");
+	undyne[1]=loadImage("undyne2.gif");
+	undyne[2]=loadImage("undyne3.gif");
+	undyne[3]=loadImage("undyne4.gif");
+	undyne[4]=loadImage("undyne5.gif");
+	undyne[5]=loadImage("undyne6.gif");
+	undyne[6]=loadImage("undyne7.gif");
+	undyne[7]=loadImage("undyne8.gif");
+	undyne[8]=loadImage("undyne9.gif");
+	undyne[9]=loadImage("undyne10.gif");
+	undyne[10]=loadImage("undyne11.gif");
 }
 void draw()
 {
-	fill(0, 0, 0);
-	rect(0, 0, 1000, 1000);
-	
-	for (int i = 0; i < 722; ++i) {
-		if(a[i]!=null)
-		{
-			a[i].move();
-			a[i].show();
-		}
-	}
-	frem++;
-	if(frem==90){
-		fillArr();
-	}else if(frem>180){
-		fillArr();
+	stroke(0,0,0);
+	fill(0,0,0);
+	rect(0,0,width,height);
+	if(frem>=55)
+	{
 		frem=0;
 	}
-	/*for(int g=0; g<360;g++){
-		OddballParticle(g);
-	}*/
-}
-class NormalParticle implements Particle
-{
-	public double xPo, yPo, /*the,*/ spe;
-	int i;
-	color c;
-	//5 member variables: X and Y positions, Color, Angle and Speed. (Hint: use doubles for X, Y, Speed and Angle)
-	NormalParticle(int r)
+	if(frem<5)
 	{
-		xPo=cenX;
-		yPo=cenY;
-		//the=radians((int)(Math.random()*360));
-		spe=5;
-		i=r;
-		//the class constructor
+		image(undyne[0], width/2-135, 20, 220,292);
 	}
-	void move()
+	if(frem>=5&&frem<10)
 	{
-		float teh=radians(i);
-		xPo+=Math.cos(teh)*spe;
-		yPo+=Math.sin(teh)*spe;
-		
+		image(undyne[1], width/2-135, 20, 220,292);
 	}
-	public int leftRight(){
-		return (int)xPo;
+	if(frem>=10&&frem<15)
+	{
+		image(undyne[2], width/2-135, 20, 220,292);
 	}
-	public int upDown(){
-		return (int)yPo;
+	if(frem>=15&&frem<20)
+	{
+		image(undyne[3], width/2-135, 20, 220,292);
 	}
-	//xPo+=Math.cos(the)*spe;
-	//yPo+=Math.sin(the)*spe;
-	//Takes the cos of the angle times the speed and adds it to the X coordinate. Does the same to Y with the sin of the angle.
+	if(frem>=20&&frem<25)
+	{
+		image(undyne[4], width/2-135, 20, 220,292);
+	}
+	if(frem>=25&&frem<30)
+	{
+		image(undyne[5], width/2-135, 20, 220,292);
+	}
+	if(frem>=30&&frem<35)
+	{
+		image(undyne[6], width/2-135, 20, 220,292);
+	}
+	if(frem>=35&&frem<40)
+	{
+		image(undyne[7], width/2-135, 20, 220,292);
+	}
+	if(frem>=40&&frem<45)
+	{
+		image(undyne[8], width/2-135, 20, 220,292);
+	}
+	if(frem>=45&&frem<50)
+	{
+		image(undyne[9], width/2-135, 20, 220,292);
+	}
+	if(frem>=50&&frem<55)
+	{
+		image(undyne[10], width/2-135, 20, 220,292);
+	}
 	
-	void show()
+	println(frem);
+	frem++;
+	stroke(255,255,255);
+	line(width/2,0,width/2,height);
+	line(0,height/2,width,height/2);
+	fill(255,255,255);
+	rect(width/2-10,height/2-10,20,20);
+	stroke(0,0,0);
+	fill(0,0,0);
+	rect(width/2-9,height/2-9,18,18);
+	image(soul,width/2-9,height/2-9,18,18);
+	for(int i=0;i<part.length;i++)
 	{
-		fill(255, 255, 255);
-		ellipse((float)xPo, (float)yPo, 20, 20);
-		//draws the particle in the correct color
-		//your code here
+		part[i].show();
+		part[i].move();
 	}
-}
-interface Particle
-{
-	void move();
-	void show();
-	int leftRight();
-	int upDown();
-	//your code here
-}
-class OddballParticle implements Particle
-{
-	public double startX, startY, endX, endY/*, beginX, beginY, doneX, doneY, spe, cou*/;
-	//make a increasing variable that goes back to zero at 359
-	OddballParticle()
-	{
-		//spe=10;
-		startX=cenX;
-		startY=cenY;
-		endX=0;
-		endY=0;
-		/*beginX=500;
-		beginY=0;
-		doneX=500;
-		doneY=1000;
-		cou=0;*/
-	}
-	public int leftRight(){
-		return (int)startX;
-	}
-	public int upDown(){
-		return (int)startY;
-	}
-	void show()
-	{
-		stroke(255, 255, 102);
-		line((int)startX, (int)startY, (int)endX, (int)endY);
-		image(img,(int)startX-100,(int)startY-100);
-		image(img,(int)endX-100,(int)endY-100);
-		startY=endY;
-		startX=endX;
-		//xPo+=Math.cos(the)*spe;
-		//yPo+=Math.sin(the)*spe;
-		/*if(xPo<=5)
-		{
-			x++;
-		}else if
-			x--;
-		}
-		if(xPo)
-		(xPo*xPo)+(yPo*yPo)=25;*/
-		
-		/*xPo+=(int)(ceX+r*cos(rot));
-		yPo+=(int)(ceY+r*sin(rot));
-		if(rot<360)
-		{
-			rot++;
-		}else{
-			rot=0;	
-		}*/
-		/*translate(width/2, height/2);
-		rotate(2*PI);*/
-		/*for (int i = 0; i < 250; ++i)
-		{
-			ellipse(startX, startY, Math.random()*5, Math.random()*5);
-
-		}*/
-		/*stroke(102, 255, 255);
-		startX=Math.random()*1001;
-		startY=Math.random()*1001;
-		/*beginX=Math.random()*1001;
-		beginY=Math.random()*1001;*/
-	}
-	void move()
-	{
-		int randX=(int)(Math.random()*720);
-		int randY=(int)(Math.random()*720);
-		while(a[randX]==null){
-			randX=(int)(Math.random()*720);
-		}
-		while(a[randY]==null)
-		{
-			randY=(int)(Math.random()*720);
-		}
-		endX=a[randX].leftRight();
-		endY=a[randY].upDown();
-		
-
-
-
-
-
-
-
-		/*while(startX<=1000)
-		{
-			fill(0, 0, 0);
-			rect(0, 0, 1000, 1000);
-			/*endX=startX+(int)(Math.random()*10);
-			endY=startY+(int)(Math.random()*19-9);*/
-			/*endX=Math.random()*1001;
-			endY=Math.random()*1001;
-			line((int)startX, (int)startY, (int)endX, (int)endY);
-			//line((int)(Math.random()*50+(centerX-25)), startY, (int)(Math.random()*800), 100);
-			startY=endY;
-			startX=endX;
-		}
-		/*while (beginY<=1000)
-		{
-			fill(0,0,0);
-			rect(0, 0, 1000, 1000);
-			/*doneY=beginY+(int)(Math.random()*10);
-			doneX=beginX+(int)(Math.random()*19-9);
-			doneX=Math.random()*1001;
-			doneY=Math.random()*1001;
-			line((int)beginX, (int)beginY, (int)doneX, (int)doneY);
-			//line((int)(Math.random()*50+(centerX-25)), startY, (int)(Math.random()*800), 100);
-			beginX=doneX;
-			beginY=doneY;
-		}*/
-	}
-		//your code here
-}
-
-
-
-
-class JumboParticle extends NormalParticle
-{
-	JumboParticle(int k)
-	{
-		super(k);
-	}
-	void show()
-	{
-		fill(255, 255, 255);
-		ellipse((float)xPo, (float)yPo, 50, 50);
-		//draws the particle in the correct color
-		//your code here
-	}
-	public int leftRight(){
-		return (int)xPo;
-	}
-	public int upDown(){
-		return (int)yPo;
-	}
-	//your code here
 }
 void mousePressed()
 {
-	fillArr();
+	fill(0,0,0);
+	//rect(-5,-5,width+10, height+10);
+	for(int i=0;i<part.length-1;i++)
+	{
+		part[i]=new Particle();
+	}
+	part[360]=new OddballParticle();
+}
+class Particle
+{
+	public float xPo, yPo, xTo, yTo;
+	public double ang;
+	public int corners=7, spe=5, frame;
+	int[] xCorners={13,5,6,-7,-7,6,5};
+	int[] yCorners={0,-3,-1,-1,1,1,3};
+	color myFill;
+	Particle()
+	{
+		xPo=width/2;
+		yPo=height/2;
+		ang=Math.random()*360;
+		myFill=color(255,255,255);
+		frame=0;
+	}
+	void show()
+	{
+		fill(myFill);   
+    	stroke(myFill);
+	    //translate the (x,y) center of the ship to the correct position
+	    translate(xPo, yPo);
+		//convert degrees to radians for rotate()     
+	    float turn = radians((float)ang);
+	    
+	    //rotate so that the polygon will be drawn in the correct direction
+	    rotate((float)turn);
+	    
+	    //draw the polygon
+	    beginShape();
+	    for (int i = 0; i < corners; i++)
+	    {
+	      vertex(xCorners[i], yCorners[i]);
+	    }
+	    endShape(CLOSE);
+
+	    //"unrotate" and "untranslate" in reverse order
+	    rotate(-1*(float)turn);
+	    translate(-1*(float)xPo, -1*(float)yPo);
+	}
+	void move()
+	{
+		float turn = radians((float)ang);
+	    
+	    
+		xPo+=(Math.cos(turn)*spe);
+		yPo+=(Math.sin(turn)*spe);
+	}
+}
+
+class OddballParticle extends Particle//inherits from Particle
+{
+	int[] xCorners={13,5,6,-7,-7,6,5};
+	int[] yCorners={0,-3,-1,-1,1,1,3};
+	float bend;
+	OddballParticle()
+	{
+		xPo=0;
+		yPo=height/2;
+		ang=Math.random()*360;
+		myFill=color(252,226,5);
+		bend=(float)ang;
+	}
+	void show()
+	{
+		fill(myFill);   
+    	stroke(myFill);
+	    //translate the (x,y) center of the ship to the correct position
+	    translate(xPo, yPo);
+		//convert degrees to radians for rotate()     
+	    float turn = radians((float)ang);
+	    //rotate so that the polygon will be drawn in the correct direction
+	    rotate(PI);
+	    
+	    //draw the polygon
+	    beginShape();
+	    for (int i = 0; i < corners; i++)
+	    {
+	      vertex(xCorners[i], yCorners[i]);
+	    }
+	    endShape(CLOSE);
+
+	    //"unrotate" and "untranslate" in reverse order
+	    rotate(-1*PI);
+	    translate(-1*(float)xPo, -1*(float)yPo);
+	}
+	void move()
+	{
+		//if(frame<10||frame>30)
+		//{
+			float turner = radians((float)bend);
+			float turn = radians((float)ang);
+			if(frame<40)
+			{
+				xPo+=10;//-=(Math.cos(turner)*spe/2);
+				//yPo++;//-=(Math.sin(turner)*spe/2);
+			}
+			/*if(frame>=30&&frame<60)
+			{
+				xPo+=(Math.cos(turner)*spe);
+				yPo+=(Math.sin(turner)*spe);
+			}*/
+	    	if(frame>=40&&frame<50)
+	    	{
+	    		xPo+=10;
+				yPo-=5;
+	    	}
+	    	if(frame>=50&&frame<60)
+	    	{
+	    		xPo+=10;
+	    		yPo+=5;
+	    	}
+	    	if(frame>=60)
+	    	{
+	    		xPo-=10;
+	    	}
+			bend++;
+			frame++;
+		//}
+		//if(frame>=10&&frame<=30)
+		//{
+			//rotate(PI/12);
+			//frame++;
+		//}
+	}
+	//your code here
 }
