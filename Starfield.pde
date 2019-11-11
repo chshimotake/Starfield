@@ -2,7 +2,7 @@ Particle partOne[]=new Particle[90];
 PImage soul;
 PImage[] undyne=new PImage[11];
 PImage back;
-int frem=0;
+int frem=0, fram=0;;
 float yUnd=40;
 float soulX=325, soulY=390;
 void setup()
@@ -99,20 +99,22 @@ void draw()
 		partOne[i].show();
 		partOne[i].move();
 	}
-}
-void mousePressed()
-{
-	fill(0,0,0);
-	//rect(-5,-5,width+10, height+10);
-	for(int i=0;i<partOne.length-1;i++)
+	fram++;
+	if(fram>=120)
 	{
-		partOne[i]=new Particle();
+		fill(0,0,0);
+		//rect(-5,-5,width+10, height+10);
+		for(int i=0;i<partOne.length-1;i++)
+		{
+			partOne[i]=new Particle();
+		}
+		for(int h=89;h<partOne.length;h++)
+		{
+			partOne[h]=new OddballParticle();
+		}
+		//part[89].ang=(int)random(0,4);
+		fram=0;
 	}
-	for(int h=89;h<partOne.length;h++)
-	{
-		partOne[h]=new OddballParticle();
-	}
-	//part[89].ang=(int)random(0,4);
 }
 void keyPressed()
 {
